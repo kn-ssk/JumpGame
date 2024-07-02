@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jump Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/top.png');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: black;
+        }
+
+        .game-container {
+            border: 5px solid #ccc;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-120px);
+        }
+
+        .title {
+            font-size: 35px;
+            margin-bottom: 10px;
+            color: #000080;
+            font-weight: bold;
+        }
+
+        .difficulty-buttons {
+            display: flex;
+            justify-content: space-baround;
+            margin-bottom: 5px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .difficulty-button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 2em;
+            width: 100%;
+            max-width: 150px;
+        }
+
+        .difficulty-button:hover {
+            background-color: #45a049;
+        }
+
+        .selected {
+            background-color: #2f4f4f !important;
+            color: white;
+        }
+
+        .start-button {
+            padding: 15px 30px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 2em;
+            margin-top: 20px;
+        }
+
+        .start-button:hover {
+            background-color: #005f6b;
+        }
+
+        .character {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 25%;
+        }
+    </style>
+</head>
+<body>
+    <img src="images/azarashi.png" alt="Character" class="character">
+    <div class="game-container">
+        <div class="title">Select Level</div>
+
+        <div class="difficulty-buttons">
+            <button class="difficulty-button" type="button" name="difficulty" value="easy" onclick="selectDifficulty(this)">Easy</button>
+            <button class="difficulty-button" type="button" name="difficulty" value="hard" onclick="selectDifficulty(this)">Hard</button>
+        </div>
+
+        <form id="gameForm" action="GameServlet" method="post">
+            <input type="hidden" id="selectedDifficulty" name="difficulty" value="">
+            <button class="start-button" type="button" onclick="startGame()">Game Start</button>
+        </form>
+    </div>
+
+    <script>
+        function selectDifficulty(button) {
+            var buttons = document.querySelectorAll('.difficulty-button');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('selected');
+            });
+            
+            button.classList.add('selected');
+
+            document.getElementById('selectedDifficulty').value = button.value;
+        }
+
+        function startGame() {
+            var difficulty = document.getElementById('selectedDifficulty').value;
+            var form = document.getElementById('gameForm');
+            if (difficulty === 'easy') {
+                form.action = 'GameServlet';
+            } else if (difficulty === 'hard') {
+                form.action = 'GameServlet';
+            }
+            form.submit();
+        }
+    </script>
+</body>
+</html>
